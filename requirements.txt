@@ -1,0 +1,7 @@
+Flask==2.3.2
+Flask-PyMongo==2.3.0
+Celery==5.2.6
+redis==4.5.5
+Werkzeug==2.3.5
+python-dotenv==0.21.1
+pymongo==4.5.0
