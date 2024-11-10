@@ -1,12 +1,15 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session
+from flask import Blueprint, render_template, request, redirect, url_for, session
 from werkzeug.security import check_password_hash
+from utils.logging import Logger
 
-# Define the blueprint for authentication
 auth_bp = Blueprint('auth', __name__)
+
+logger = Logger.get_logger()
 
 # Route for rendering the login page (GET request)
 @auth_bp.route('/login', methods=['GET'])
 def login_get():
+    logger.info("Rendering login page")
     return render_template('login.html')
 
 # Route for processing the login form (POST request)
@@ -19,16 +22,18 @@ def login_post():
     user = User.find_by_username(username)
     
     if user and check_password_hash(user['password'], password):
-        session['username'] = username  # Store username in session
-        print('Login successful!') 
-        return redirect(url_for('movie.home'))  # Redirect to home page after successful login
+        session['username'] = username  
+        logger.info('Login successful!') 
+        return redirect(url_for('movie.home'))  
     else:
-        print('Invalid username or password')  # Flash error message if login fails
-        return redirect(url_for('auth.login_get'))  # Redirect back to the login page if credentials are incorrect
+        logger.warning(f"Invalid login attempt for username: {username}")
+        logger.info('Invalid username or password')  
+        return redirect(url_for('auth.login_get'))
 
 # Route for rendering the signup page (GET request)
 @auth_bp.route('/signup', methods=['GET'])
 def signup_get():
+    logger.info("Rendering signup page")
     return render_template('signup.html')
 
 # Route for processing the signup form (POST request)
@@ -39,26 +44,25 @@ def signup_post():
     password = request.form['password']
     confirm_password = request.form['confirm_password']
 
-    # Validate that passwords match
     if password != confirm_password:
-        print('Passwords do not match.')
-        return redirect(url_for('auth.signup_get'))  # Redirect to the signup page if passwords don't match
+        logger.info('Passwords do not match.')
+        return redirect(url_for('auth.signup_get')) 
 
-    # Check if the user already exists
     existing_user = User.find_by_username(username)
     if existing_user:
-        print('Username already exists. Please choose another one')
-        return redirect(url_for('auth.signup_get'))  # Redirect back to signup page if username exists
+        logger.info('Username already exists. Please choose another one')
+        return redirect(url_for('auth.signup_get')) 
 
-    # Create the new user
     User.create_user(username, password)
 
-    print('Signup successful! Please log in')
-    return redirect(url_for('auth.login_get'))  # Redirect to login page after successful signup
+    logger.info(f"User {username} signed up successfully")
+    logger.info('Signup successful! Please log in')
+    return redirect(url_for('auth.login_get')) 
 
 # Logout Route
 @auth_bp.route('/logout')
 def logout():
-    session.clear()  # Remove username from session (logout)
-    print('You have been logged out')
-    return redirect(url_for('auth.login_get'))  # Redirect to login page
+    session.clear() 
+
+    logger.info("User logged out")
+    return redirect(url_for('auth.login_get')) 
