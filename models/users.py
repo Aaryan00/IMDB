@@ -1,4 +1,4 @@
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 from pymongo import ASCENDING
 from app import mongo
 
@@ -13,5 +13,4 @@ class User:
     
     @staticmethod
     def find_by_username(username):
-        # import pdb; pdb.set_trace()
         return mongo.cx.imdb.users.find_one({"username": username})
