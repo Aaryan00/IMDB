@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMDB</title>
+</head>
+<body>
+    <h2>Welcome to imdb</h2>
+    <p class="mt-3 text-center"><a href="{{ url_for('auth.logout') }}">Logout</a></p>
+
+    <h1>Upload CSV File</h1>
+    <form action="{{ url_for('upload.upload_csv') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" required><br><br>
+        <button type="submit">Upload CSV</button>
+    </form>
+
+    <p class="mt-3 text-center">Finding all movies ?<a href="{{ url_for('movie.get_movies') }}">Get all movies</a></p>
+
+    <p><strong>Logged in as:</strong> {{ session['username'] }}</p>
+    
+    <h3>Your Uploaded Files</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Filename</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for upload in uploads %}
+                <tr>
+                    <td>{{ upload.filename }}</td>
+                    <td>{{ upload.status }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">You have no uploaded files yet.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
+
+
