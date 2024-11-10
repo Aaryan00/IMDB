@@ -38,9 +38,8 @@ Before you begin, make sure you have the Python 3.x installed
 # Installation
 1. Clone the repository
 2. Install the required dependencies
-3. The application requires an uploads folder to store CSV files. Make sure the uploads folder is created in root level before running the application.
 
-Db is running on cloud so no need to setup in local.
+Db is running on cloud so there is no need to setup in local.
 
 # Running the App in Development Mode
 To start the Flask app in development mode, run the following command:
