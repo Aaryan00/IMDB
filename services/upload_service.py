@@ -1,10 +1,12 @@
-from flask import Blueprint, request, jsonify, session
+from flask import Blueprint, request, jsonify, session, redirect, url_for
 import os
 from werkzeug.utils import secure_filename
 import threading
 import csv
+from utils.logging import Logger
 
 upload_bp = Blueprint('upload', __name__)
+logger = Logger.get_logger()
 
 @upload_bp.route('/upload', methods=['POST'])
 def upload_csv():
@@ -12,12 +14,18 @@ def upload_csv():
     from models.upload import Upload
 
     username = session.get('username')
+    if not username:
+        logger.warning("User not logged in, redirecting to login")
+        return redirect(url_for('auth.login_get'))
+    
     if 'file' not in request.files:
+        logger.warning("No file selected for upload")
         return jsonify({"message": "No file part"}), 400
     
     file = request.files['file']
     
     if file.filename == '' or not allowed_file(file.filename):
+        logger.warning("Invalid file type uploaded")
         return jsonify({"message": "Invalid file format"}), 400
 
     filename = secure_filename(file.filename)
@@ -25,10 +33,11 @@ def upload_csv():
     
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(file_path)
+    logger.info(f"File {filename} uploaded successfully for user: {username}")
 
     processing_thread = threading.Thread(target=process_csv_in_background, args=(file_path, upload_id.inserted_id))
     processing_thread.start()
-    
+
     return jsonify({"message": "File will be uploaded in some time", "upload_id": str(upload_id)}), 200
 
 def allowed_file(filename):
@@ -41,7 +50,7 @@ def process_csv_in_background(file_path, upload_id):
     from models.upload import Upload
     from models.movie import Movie
     try:
-        # Update status to 'Processing' in the database
+        logger.info(f"Started processing file: {file_path} for id: {upload_id}")
         Upload.update_status(upload_id, 'Processing')
 
         batch_size = 25  
@@ -57,11 +66,11 @@ def process_csv_in_background(file_path, upload_id):
             if batch:
                 Movie.insert_movie_batch(batch)
 
-        print(f"Inserted Data")
-        
+        logger.info(f"Finished processing file: {file_path}")
+
         Upload.update_status(upload_id, 'Completed')
 
     except Exception as e:
         # In case of error, update status to 'Failed'
         Upload.update_status(upload_id, 'Failed')
-        print(f"Error while processing CSV file: {e}")
+        logger.error(f"Error while processing CSV file: {e}")
