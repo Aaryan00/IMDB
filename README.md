@@ -54,5 +54,5 @@ Movies can be sorted by date_added, release_year, and duration.
 The movies are displayed with pagination (default is 5 per page).
 
 
-Author
+# Author
 This project was developed by Aryan Agrawal.
