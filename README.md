@@ -21,15 +21,15 @@ Users can check the progress of their uploads.
 Movies can be viewed with sorting and pagination options.
 
 # Tech Stack
-## Backend: 
-Flask
-## Database: 
+### Backend: 
+Flask web framework for building the server-side logic.
+### Database: 
 MongoDB (with pymongo integration)
-## Background Task Processing: 
+### Background Task Processing: 
 Python threading
-## Frontend: 
+### Frontend: 
 HTML (Basic UI for login, signup, dashboard)
-## File Handling: 
+### File Handling: 
 werkzeug for secure file uploads and password
 
 # Requirements
