@@ -65,6 +65,8 @@ On the Movie Dashboard page, you'll see the list of movies uploaded by you.
 Movies can be **sorted** by date_added, release_year, and duration.
 The movies are displayed with **pagination** (default is 5 per page).
 
+## Logs
+All the logs can be seen in logs folder which will be created automatically when server start
 
 # Author
 This project was developed by Aryan Agrawal.
