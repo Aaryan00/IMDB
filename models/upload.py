@@ -1,4 +1,5 @@
 from app import mongo
+from datetime import datetime
 
 class Upload:
     @staticmethod
@@ -6,7 +7,8 @@ class Upload:
         return mongo.cx.imdb.uploads.insert_one({
             "username": username,
             "filename": filename,
-            "status": "Pending"
+            "status": "Pending",
+            "upload_time": datetime.now()
         })
     
     @staticmethod
