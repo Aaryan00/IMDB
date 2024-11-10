@@ -1,0 +1,95 @@
+{
+    "users": {
+      "indexes": [
+        {
+          "field": "username",
+          "type": "unique"
+        }
+      ],
+      "schema": {
+        "username": {
+          "type": "str"
+        },
+        "password": {
+          "type": "str"
+        }
+      }
+    },
+    "uploads": {
+      "indexes": [
+        {
+          "field": "username"
+        }
+      ],
+      "schema": {
+        "username": {
+          "type": "str"
+        },
+        "filename": {
+          "type": "str"
+        },
+        "status": {
+          "type": "str"
+        },
+        "upload_time": {
+          "type": "datetime"
+        }
+      }
+    },
+    "movies": {
+      "indexes": [
+        {
+          "field": "date_added",
+          "type": "ascending"
+        },
+        {
+          "field": "release_year",
+          "type": "ascending"
+        },
+        {
+          "field": "duration",
+          "type": "ascending"
+        },
+        {
+          "field": "show_id",
+          "type": "unique"
+        }
+      ],
+      "schema": {
+        "show_id": {
+          "type": "str"
+        },
+        "type": {
+          "type": "str"
+        },
+        "title": {
+          "type": "str"
+        },
+        "director": {
+          "type": "int"
+        },
+        "cast": {
+          "type": "int"
+        },
+        "country": {
+          "type": "datetime"
+        },
+        "date_added": {
+          "type": "list"
+        },
+        "release_year": {
+          "type": "float"
+        },
+        "rating": {
+          "type": "str"
+        },
+        "listed_in": {
+          "type": "list"
+        },
+        "description": {
+          "type": "list"
+        }
+      }
+    }
+  }
+  
