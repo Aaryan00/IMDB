@@ -47,6 +47,17 @@ Db is running on cloud so there is no need to setup in local.
 To start the Flask app in development mode, run the following command:
 python app.py
 
+#Testing the Application
+For testing purposes, you can use the following pre-created users to log in:
+
+**Username**: Aryan Agrawal
+**Password**: Aryan
+
+**Username**: guest
+**Password**: guest
+
+These credentials are already available in the system for quick login and testing.
+
 # How to Use the Application
 ## 1. User Authentication
 Users can sign up, log in, and log out of their accounts.
@@ -56,11 +67,6 @@ Navigate to /signup to create a new user account.
 After signing up, log in to your account via the /login page.
 ### Logout: 
 You can log out by clicking the "Logout" button which clears your session.
-
-Providing some already created users for testing
-username        password
-Aryan Agrawal     Aryan
-guest             guest
 
 ## 2. File Upload
 Navigate to the Dashboard page after logging in.
