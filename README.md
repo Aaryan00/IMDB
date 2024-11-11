@@ -47,7 +47,7 @@ Db is running on cloud so there is no need to setup in local.
 To start the Flask app in development mode, run the following command:
 python app.py
 
-#Testing the Application
+# Testing the Application
 For testing purposes, you can use the following pre-created users to log in:
 
 **Username**: Aryan Agrawal
