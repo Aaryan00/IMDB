@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
-from werkzeug.security import check_password_hash
 from utils.logging import Logger
+from utils.password import Password
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -18,10 +18,9 @@ def login_post():
     from models.users import User
     username = request.form['username']
     password = request.form['password']
-
     user = User.find_by_username(username)
     
-    if user and check_password_hash(user['password'], password):
+    if user and Password.verify_password(user['password'], password):
         session['username'] = username  
         logger.info('Login successful!') 
         return redirect(url_for('movie.home'))  
