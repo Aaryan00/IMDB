@@ -30,7 +30,9 @@ Python threading
 ### Frontend: 
 HTML (Basic UI for login, signup, dashboard)
 ### File Handling: 
-werkzeug for secure file uploads and password
+werkzeug for secure file uploads 
+### Hashing
+Bcrypt for hashing passwords
 
 # Requirements
 Before you begin, make sure you have the Python 3.x installed
@@ -54,6 +56,11 @@ Navigate to /signup to create a new user account.
 After signing up, log in to your account via the /login page.
 ### Logout: 
 You can log out by clicking the "Logout" button which clears your session.
+
+Providing some already created users for testing
+username        password
+Aryan Agrawal     Aryan
+guest             guest
 
 ## 2. File Upload
 Navigate to the Dashboard page after logging in.
