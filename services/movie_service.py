@@ -21,7 +21,6 @@ def home():
 
     logger.info(f"Rendering movie dashboard for user: {username}")
     return render_template('dashboard.html', uploads=uploads)
-# , movies=movies, page=page)
 
 @movie_bp.route('/get_movies')
 def get_movies():
@@ -47,10 +46,7 @@ def get_movies():
     sort_direction = -1 if sort_order == 'desc' else 1  # MongoDB sorts: -1 for descending, 1 for ascending
     sort_field = sort_by  
 
-    # Query MongoDB to get the movies with pagination and sorting
     movies_cursor = Movie.get_movies(sort_field, sort_direction, skip, limit)
-
-    # Convert the cursor to a list of movies
     movies = list(movies_cursor)
 
     # Calculate total movies to handle pagination
